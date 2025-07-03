@@ -1,0 +1,39 @@
+<ui-header-title>
+  <span class="material-symbols-outlined">person_remove</span>
+  <span> Inactivar Entrenador </span>
+</ui-header-title>
+
+<span>
+  <strong>¿Esta seguro que quiere inactivar al deportista?</strong> tenga en
+  cuenta que si se inactiva, las credenciales del usuario seran revocadas
+</span>
+<!-- TODO: form invalid constraints -->
+<ng-container [formGroup]="form">
+  <ui-control-input attrFor="razon">
+    <label> Razon de la inactivacion</label>
+    <select formControlName="inactivationReason">
+      <option value="" selected disabled>
+        Seleccione una razon de la inactivacion
+      </option>
+      @for (reason of inactivationReasons; track reason) {
+        <option [value]="reason">{{ reason }}</option>
+      }
+    </select>
+  </ui-control-input>
+  <ui-control-input attrFor="descripcion">
+    <label>Descripcion</label>
+    <textarea
+      formControlName="descripcion"
+      placeholder="Escriba una descripcion del porque de la inactivacion"
+    ></textarea>
+  </ui-control-input>
+</ng-container>
+
+<footer class="d-flex justify-content-end gap-2">
+  <button class="btn btn-outline-danger" (click)="dialogRef.close()">
+    Cancelar
+  </button>
+  <button class="btn btn-outline-primary" [disabled]="form.invalid">
+    Inactivar
+  </button>
+</footer>

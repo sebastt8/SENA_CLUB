@@ -1,0 +1,32 @@
+:host {
+  height: 100vh;
+  display: block;
+}
+
+nav a,
+.nav-link,
+.nav-link.show,
+.toggle-icon {
+  color: white;
+}
+
+main {
+  display: grid;
+  width: calc(100% - 50px);
+  margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.nav-link.active {
+  background-color: var(--bs-primary-bg-subtle);
+  color: var(--bs-primary) !important;
+  border-radius: 5px;
+}
+
+.dropdown-item {
+  color: var(--bs-primary) !important;
+}
+
+.dropdown-item:active {
+  color: white !important;
+}

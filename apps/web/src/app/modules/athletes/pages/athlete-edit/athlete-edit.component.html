@@ -1,0 +1,44 @@
+<ui-header-title>
+  <span class="material-symbols-outlined"> person_edit </span>
+  <span>Editar Deportista</span>
+</ui-header-title>
+
+<span>
+  En este formulario podras <strong>agregar un deportista</strong>, no olvides
+  llenar los campos requeridos
+</span>
+
+<section>
+  <ui-header-subtitle> Informacion general </ui-header-subtitle>
+  <ui-user-general-info> </ui-user-general-info>
+</section>
+
+<section>
+  <ui-header-subtitle> Informacion residencia </ui-header-subtitle>
+  <ui-address-info> </ui-address-info>
+</section>
+
+<section>
+  <ui-header-subtitle>Informacion tutor </ui-header-subtitle>
+  <ui-tutor-info></ui-tutor-info>
+</section>
+
+<footer class="d-flex gap-2 justify-content-end">
+  <button
+    class="btn btn-outline-danger"
+    (click)="cancel()"
+    [disabled]="isLoading()"
+  >
+    Cancelar
+  </button>
+  <button
+    class="btn btn-primary d-flex gap-2 align-items-center"
+    (click)="updateAthlete()"
+    [disabled]="isLoading()"
+  >
+    @if (isLoading()) {
+    <div class="spinner"></div>
+    }
+    <span>Editar deportista</span>
+  </button>
+</footer>

@@ -1,0 +1,17 @@
+.btn-paginator {
+  text-decoration: none;
+  padding: 8px 7px 2px 8px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: transparent;
+  border: none;
+
+  &:hover:not(:disabled){
+    transition: all 0.2s ease-in-out;
+    background-color: lightgray;
+  }
+}
+
+.page-size {
+  width: 90px;
+}

@@ -1,0 +1,64 @@
+<ui-header-title>
+  <span class="material-symbols-outlined"> person_add </span>
+  <span>Gestionar entrenadores</span>
+</ui-header-title>
+
+<span>
+  En este modulo podras editar, inactivar y filtrar a los entrenadores del club
+</span>
+<ui-search-input
+  [dataTable]="trainerStore"
+  placeholderText="Buscar entrenador"
+/>
+<table class="table table-hover" cdk-table [dataSource]="trainerStore.data()">
+  <ng-container cdkColumnDef="nombres">
+    <th cdk-header-cell *cdkHeaderCellDef>Nombres y Apellidos</th>
+    <td cdk-cell *cdkCellDef="let element">
+      {{ element.personaClub.nombres }} {{ element.personaClub.apellidos }}
+    </td>
+  </ng-container>
+  <ng-container cdkColumnDef="documento">
+    <th cdk-header-cell *cdkHeaderCellDef>Documento</th>
+    <td cdk-cell *cdkCellDef="let element">
+      {{ element.personaClub.tipoDocumento }}
+      {{ element.personaClub.numeroDocumento }}
+    </td>
+  </ng-container>
+  <ng-container cdkColumnDef="fechaContratacion">
+    <th cdk-header-cell *cdkHeaderCellDef>Fecha contratacion</th>
+    <td cdk-cell *cdkCellDef="let element">
+      {{ element.fechaIngreso | date }}
+    </td></ng-container
+  >
+  <ng-container cdkColumnDef="estado">
+    <th cdk-header-cell *cdkHeaderCellDef>Estado</th>
+    <td cdk-cell *cdkCellDef="let element">
+      {{ element.activo ? 'Activo' : 'Inactivo' }}
+    </td>
+  </ng-container>
+  <ng-container cdkColumnDef="opciones">
+    <th cdk-header-cell *cdkHeaderCellDef>Opciones</th>
+    <td cdk-cell *cdkCellDef="let element">
+      <section class="d-flex gap-1">
+        <button
+          class="btn btn-outline-danger"
+          title="Eliminar entrenador"
+          ui-icon-button
+          (click)="onDelete()"
+        >
+          delete
+        </button>
+        <a
+          ui-icon-button
+          title="Editar entrenador"
+          [routerLink]="[appRoutes.TrainerEdit, element.id]"
+        >
+          edit
+        </a>
+      </section>
+    </td>
+  </ng-container>
+  <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+  <tr cdk-row *cdkRowDef="let row; columns: displayedColumns"></tr>
+</table>
+<ui-paginator [dataTable]="trainerStore" />

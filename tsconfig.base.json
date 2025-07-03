@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@api/database": ["apps/api/libs/database/src/index.ts"],
+      "@sacd/core/*": ["core/src/*"],
+      "@web/libs/athlete/*": ["apps/web/src/libs/athlete/src/*"],
+      "@web/libs/locations": ["apps/web/src/libs/locations/src/index.ts"],
+      "@web/libs/shared/*": ["apps/web/src/libs/shared/src/*"],
+      "@web/libs/trainer/*": ["apps/web/src/libs/trainer/src/*"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

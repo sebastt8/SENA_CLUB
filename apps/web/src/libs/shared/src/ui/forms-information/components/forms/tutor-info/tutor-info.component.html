@@ -1,0 +1,58 @@
+<ng-container [formGroup]="form">
+  <ui-control-input attrFor="nombres">
+    <label> Nombres *</label>
+    <input
+      placeholder="Ingrese nombres"
+      type="text"
+      formControlName="nombres"
+    />
+  </ui-control-input>
+
+  <ui-control-input attrFor="apellidos">
+    <label> Apellidos *</label>
+    <input
+      placeholder="Ingrese apellidos"
+      type="text"
+      formControlName="apellidos"
+    />
+  </ui-control-input>
+
+  <ui-control-input attrFor="correo">
+    <label> Correo* </label>
+    <input
+      placeholder="Ingrese correo"
+      type="correo"
+      formControlName="correo"
+    />
+  </ui-control-input>
+
+  <ui-control-input attrFor="tipoDocumento">
+    <label> Tipo documento *</label>
+    <select formControlName="tipoDocumento">
+      <option selected disabled value="">Ingrese numero documento</option>
+      @for (document of documentsTypes; track $index) {
+      <option [value]="document.value">{{ document.label }}</option>
+      }
+    </select>
+  </ui-control-input>
+
+  <ui-control-input attrFor="numeroDocumento">
+    <label> Numero documento *</label>
+    <input
+      placeholder="Ingrese numero de documento"
+      type="number"
+      formControlName="numeroDocumento"
+    />
+  </ui-control-input>
+
+  <ui-control-input attrFor="telefono">
+    <label> Telefono* </label>
+    <input
+      placeholder="Ingrese numero de telefono"
+      type="number"
+      formControlName="telefono"
+    />
+  </ui-control-input>
+
+  <ng-content select="ui-control-input"></ng-content>
+</ng-container>

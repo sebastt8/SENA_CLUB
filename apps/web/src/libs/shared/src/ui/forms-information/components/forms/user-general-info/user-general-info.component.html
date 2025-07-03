@@ -1,0 +1,139 @@
+<ng-container [formGroup]="form">
+  <ui-control-input attrFor="nombres">
+    <label> Nombres *</label>
+    <input
+      placeholder="Ingrese nombres"
+      type="text"
+      formControlName="nombres"
+    />
+  </ui-control-input>
+
+  <ui-control-input attrFor="apellidos">
+    <label>Apellidos *</label>
+    <input
+      placeholder="Ingrese apellidos"
+      type="text"
+      formControlName="apellidos"
+    />
+  </ui-control-input>
+
+  <ui-control-input attrFor="tipoDocumento">
+    <label> Tipo documento *</label>
+    <select formControlName="tipoDocumento">
+      <option selected disabled value="">Ingrese numero documento</option>
+      @for (document of documentsTypes; track $index) {
+        <option [value]="document.value">{{ document.label }}</option>
+      }
+    </select>
+  </ui-control-input>
+
+  <ui-control-input attrFor="numeroDocumento">
+    <label>Ingrese numero documento *</label>
+    <input
+      type="number"
+      pattern="^[0-9]*$"
+      placeholder="Ingrese numero documento "
+      formControlName="numeroDocumento"
+    />
+  </ui-control-input>
+
+  <ui-control-input attrFor="fechaNacimiento">
+    <label> Fecha nacimiento * </label>
+    <input
+      placeholder="Ingrese fecha de nacimiento"
+      type="date"
+      formControlName="fechaNacimiento"
+    />
+  </ui-control-input>
+
+  <ui-control-input attrFor="tipoRH">
+    <label> Tipo de RH * </label>
+    <select formControlName="tipoRH">
+      <option selected disabled value="">Ingrese RH</option>
+      @for (rhType of rhTypes; track rhType) {
+        <option [value]="rhType">{{ rhType }}</option>
+      }
+    </select>
+  </ui-control-input>
+
+  <ui-control-input attrFor="genero">
+    <label> Genero * </label>
+    <select formControlName="genero">
+      <option selected disabled value="">Ingrese Genero</option>
+      @for (gender of genders; track gender.value) {
+        <option [value]="gender.value">{{ gender.label }}</option>
+      }
+    </select>
+  </ui-control-input>
+
+  <ui-control-input attrFor="peso">
+    <label> Peso (Kg) </label>
+    <input
+      placeholder="Ingrese peso"
+      type="text"
+      pattern="^\d+(\.\d+)?$"
+      formControlName="peso"
+    />
+  </ui-control-input>
+
+  <ui-control-input attrFor="altura">
+    <label> Altura (mts) </label>
+    <input
+      placeholder="Ingrese altura"
+      type="text"
+      pattern="^\d+(\.\d+)?$"
+      formControlName="altura"
+    />
+  </ui-control-input>
+
+  <ui-control-input attrFor="correo">
+    <label> Correo* </label>
+    <input
+      placeholder="Ingrese correo"
+      type="correo"
+      formControlName="correo"
+    />
+  </ui-control-input>
+
+  <ui-control-input attrFor="telefono">
+    <label>Numero telefono* </label>
+    <input
+      placeholder="Ingrese telefono"
+      type="number"
+      pattern="^[0-9]*$"
+      formControlName="telefono"
+    />
+  </ui-control-input>
+
+  <ui-control-input attrFor="tallaCamisa">
+    <label> Talla camisa </label>
+    <select formControlName="tallaCamisa">
+      <option selected disabled value="">Seleccione talla</option>
+      @for (shirtSize of shirtsSizes; track shirtSize) {
+        <option [value]="shirtSize">{{ shirtSize }}</option>
+      }
+    </select>
+  </ui-control-input>
+
+  <ui-control-input attrFor="tallaCalzado">
+    <label> Talla de calzado </label>
+    <input
+      placeholder="Ingrese talla calzado"
+      type="number"
+      formControlName="tallaCalzado"
+      pattern="^[0-9]*$"
+    />
+  </ui-control-input>
+
+  <ui-control-input attrFor="tallaPantalon">
+    <label> Talla de pantaloneta </label>
+    <input
+      placeholder="Ingrese talla pantaloneta"
+      type="number"
+      formControlName="tallaPantalon"
+      pattern="^[0-9]*$"
+    />
+  </ui-control-input>
+
+  <ng-content select="ui-control-input"></ng-content>
+</ng-container>

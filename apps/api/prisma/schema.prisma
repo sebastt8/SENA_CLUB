@@ -1,0 +1,178 @@
+generator client {
+    provider        = "prisma-client-js"
+    output          = "../libs/database/generated/prisma/client"
+    previewFeatures = ["relationJoins"]
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model CargosAdmin {
+    id     Int     @id @default(autoincrement())
+    nombre String? @db.VarChar(1000)
+
+    @@map("tb_cargos_admin")
+}
+
+model PersonaClub {
+    id               Int         @id @default(autoincrement())
+    numeroDocumento  String      @map("numero_documento") @db.VarChar(100)
+    tipoDocumento    String      @map("tipo_documento") @db.VarChar(10)
+    idMunicipio      Int         @unique @map("id_municipio")
+    nombres          String      @db.VarChar(500)
+    apellidos        String      @db.VarChar(500)
+    fechaNacimento   DateTime?   @map("fecha_nacimento") @db.Date
+    tipoRh           String?     @map("tipo_rh") @db.VarChar(100)
+    peso             Float?      @db.Float
+    altura           Float?      @db.Float
+    correo           String      @db.VarChar(500)
+    numeroTelefono   String      @map("numero_telefono") @db.VarChar(100)
+    tallaCamisa      String?     @map("talla_camisa") @db.VarChar(100)
+    tallaCalzado     String?     @map("talla_calzado") @db.VarChar(100)
+    tallaPantaloneta String?     @map("talla_pantaloneta") @db.VarChar(100)
+    genero           String?     @db.VarChar(200)
+    direccion        String?     @db.Text
+    municipio        Municipio   @relation(fields: [idMunicipio], references: [id])
+    entrenador       Entrenador?
+    deportista       Deportista?
+    usuario          Usuario?
+
+    @@index([idMunicipio], map: "fk_personas_municipio")
+    @@map("tb_personas_club")
+}
+
+model ContactosEmergencia {
+    id              Int         @id @default(autoincrement())
+    tipoDocumento   String      @map("tipo_documento") @db.VarChar(10)
+    numeroDocumento String?     @map("numero_documento") @db.VarChar(100)
+    nombres         String?     @db.VarChar(5000)
+    apellidos       String?     @db.VarChar(5000)
+    correo          String?     @db.Text
+    telefono        String?     @db.Text
+    entrenador      Entrenador?
+
+    @@map("tb_contactos_emergencia")
+}
+
+model Entrenador {
+    id                   Int                  @id @default(autoincrement())
+    idPersonaClub        Int                  @unique @map("id_persona_club")
+    idContactoEmergencia Int?                 @unique @map("id_contacto_emergencia")
+    fechaIngreso         DateTime?            @map("fecha_ingreso") @db.Date
+    activo               Boolean?
+    contactosEmergencia  ContactosEmergencia? @relation(fields: [idContactoEmergencia], references: [id])
+    personaClub          PersonaClub          @relation(fields: [idPersonaClub], references: [id])
+
+    @@index([idPersonaClub], map: "fk_entrenadores_personas")
+    @@map("tb_entrenadores")
+}
+
+model Tutor {
+    id              Int         @id @default(autoincrement())
+    tipoDocumento   String      @map("tipo_documento") @db.VarChar(10)
+    numeroDocumento String?     @map("numero_documento") @db.VarChar(100)
+    nombres         String?     @db.VarChar(5000)
+    apellidos       String?     @db.VarChar(5000)
+    correo          String?     @db.Text
+    telefono        String?     @db.Text
+    deportista      Deportista?
+
+    @@map("tb_tutores")
+}
+
+model Deportista {
+    id                  Int                  @id @default(autoincrement())
+    idTutor             Int?                 @unique @map("id_tutor")
+    idPersonaClub       Int                  @unique @map("id_persona_club")
+    categoria           String
+    activo              Boolean?
+    tutor               Tutor?               @relation(fields: [idTutor], references: [id])
+    personaClub         PersonaClub          @relation(fields: [idPersonaClub], references: [id])
+    desercionDeportista DesercionDeportista?
+    pagosDeportista     PagoDeportista[]
+
+    @@index([idPersonaClub], map: "fk_deportistas_personas")
+    @@index([idTutor], map: "fk_deportistas_tutor")
+    @@map("tb_deportistas")
+}
+
+model DesercionDeportista {
+    id             Int        @id @default(autoincrement())
+    idDeportista   Int        @unique @map("id_deportista")
+    fechaDesercion DateTime?  @map("fecha_desercion") @db.Date
+    razon          String?    @db.VarChar(800)
+    descripcion    String?    @db.Text
+    deportista     Deportista @relation(fields: [idDeportista], references: [id])
+
+    @@index([idDeportista], map: "fk_desercion_deportista")
+    @@map("tb_desercion_deportistas")
+}
+
+model GestionAdmin {
+    id           Int       @id @default(autoincrement())
+    idTutor      Int?      @map("id_tutor")
+    idDeportista Int?      @map("id_deportista")
+    idCargo      Int?      @map("id_cargo")
+    fechaInicio  DateTime? @map("fecha_inicio") @db.Date
+    fechaFin     DateTime? @map("fecha_fin") @db.Date
+    activo       Boolean?
+
+    @@index([idCargo], map: "fk_gestion_cargo")
+    @@index([idDeportista], map: "fk_gestion_deportista")
+    @@index([idTutor], map: "fk_gestion_tutor")
+    @@map("tb_gestion_admin")
+}
+
+model PagoDeportista {
+    id           Int         @id @default(autoincrement())
+    idDeportista Int         @map("id_deportista")
+    fechaPago    DateTime?   @map("fecha_pago") @db.Date
+    valor        Decimal?    @db.Decimal(10, 2)
+    tipoPago     String?     @db.Text
+    deportista   Deportista? @relation(fields: [idDeportista], references: [id])
+
+    @@index([idDeportista], map: "fk_pagos_deportista")
+    @@map("tb_pagos_deportistas")
+}
+
+model Usuario {
+    id          Int          @id @default(autoincrement())
+    usuario     String?      @db.VarChar(5000)
+    contrasenia String?      @db.VarChar(5000)
+    activo      Boolean?
+    idPersona   Int?         @unique @map("id_persona")
+    persona     PersonaClub? @relation(fields: [idPersona], references: [id])
+
+    @@index([idPersona], map: "fk_usuarios_personas")
+    @@map("tb_usuarios")
+}
+
+model Departamento {
+    id        Int        @id @default(autoincrement())
+    nombre    String?    @db.VarChar(800)
+    municipio Municipio?
+
+    @@map("tb_departamento")
+}
+
+model Municipio {
+    id             Int           @id @default(autoincrement())
+    idDepartamento Int           @unique @map("id_departamento")
+    nombre         String?       @db.VarChar(800)
+    estado         Boolean?
+    personaClub    PersonaClub[]
+    departamento   Departamento  @relation(fields: [idDepartamento], references: [id])
+
+    @@index([idDepartamento], map: "fk_municipio_departamento")
+    @@map("tb_municipio")
+}
+
+model TipoDocumento {
+    id            Int     @id @default(autoincrement())
+    tipoDocumento String? @map("tipo_documento") @db.VarChar(5)
+    descripcion   String? @db.VarChar(500)
+
+    @@map("tb_tipo_documento")
+}

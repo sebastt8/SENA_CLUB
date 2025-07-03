@@ -1,0 +1,22 @@
+<main>
+  <section class="main-icon"></section>
+  <h1>Sistema Gestión Clubes Deportivos</h1>
+  <hr />
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ui-control-input attrFor="user">
+      <label>Ingrese su usuario</label>
+      <section class="input-group has-validation">
+        <span class="input-group-text material-symbols-outlined"> person </span>
+        <input type="text" formControlName="user" />
+      </section>
+    </ui-control-input>
+    <ui-control-input attrFor="password">
+      <label>Ingrese su contraseña</label>
+      <section class="input-group">
+        <span class="input-group-text material-symbols-outlined"> lock </span>
+        <input type="password" formControlName="password" />
+      </section>
+    </ui-control-input>
+    <input type="submit" class="btn btn-primary" value="Ingresar" />
+  </form>
+</main>

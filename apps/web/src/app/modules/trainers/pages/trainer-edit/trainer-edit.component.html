@@ -1,0 +1,29 @@
+<ui-header-title>
+  <span class="material-symbols-outlined"> person_edit </span>
+  <span>Editar entrenador</span>
+</ui-header-title>
+
+<span>
+  En este formulario podras <strong>editar un entrenador</strong>, no olvides
+  llenar los campos requeridos
+</span>
+
+<section>
+  <ui-header-subtitle> Informacion general </ui-header-subtitle>
+  <ui-user-general-info> </ui-user-general-info>
+</section>
+
+<section>
+  <ui-header-subtitle> Informacion residencia </ui-header-subtitle>
+  <ui-address-info> </ui-address-info>
+</section>
+
+<section>
+  <ui-header-subtitle>Informacion contacto emergencia </ui-header-subtitle>
+  <ui-tutor-info></ui-tutor-info>
+</section>
+
+<footer class="d-flex gap-2 justify-content-end">
+  <button class="btn btn-outline-danger" (click)="cancel()">Cancelar</button>
+  <button class="btn btn-primary">Actualizar entrenador</button>
+</footer>

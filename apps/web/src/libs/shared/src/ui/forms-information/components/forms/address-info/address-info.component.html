@@ -1,0 +1,32 @@
+<ng-container [formGroup]="form">
+  <ui-control-input attrFor="departamento">
+    <label> Departamento residencia *</label>
+    <select formControlName="departamento">
+      <option selected disabled value="">Seleccione departamento</option>
+      @for (departamento of locationStore.departamentos(); track $index) {
+      <option [value]="departamento.id">{{ departamento.nombre }}</option>
+      }
+    </select>
+  </ui-control-input>
+
+  <ui-control-input attrFor="ciudad">
+    <label> Direccion residencia *</label>
+    <select formControlName="ciudad">
+      <option selected disabled value="">Seleccione cuidad</option>
+      @for (municipio of municipios(); track $index) {
+      <option [value]="municipio.id">{{ municipio.nombre }}</option>
+      }
+    </select>
+  </ui-control-input>
+
+  <ui-control-input attrFor="direccion">
+    <label>Direccion residencia *</label>
+    <input
+      placeholder="Ingrese direccion"
+      type="text"
+      formControlName="direccion"
+    />
+  </ui-control-input>
+
+  <ng-content select="app-control-input"></ng-content>
+</ng-container>

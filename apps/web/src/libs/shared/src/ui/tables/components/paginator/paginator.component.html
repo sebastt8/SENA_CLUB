@@ -1,0 +1,27 @@
+<div class="d-inline-flex gap-3 align-items-center">
+  <span>items por pagina :</span>
+  <select class="form-select page-size" #pageRef (change)="setPageSize(pageRef.value)">
+    @for (pageOption of pageSizeOptions(); track $index) {
+      <option [value]="pageOption" [selected]="pageOption === pageSize()">
+        {{ pageOption }}
+      </option>
+    }
+  </select>
+</div>
+<div class="d-inline-flex align-items-center">
+  <span> {{ resume() }} </span>
+  <button
+    class="btn-paginator"
+    [disabled]="disablePrevBtn()"
+    (click)="dataTable().previousPage()"
+  >
+    <span class="material-symbols-outlined"> chevron_left </span>
+  </button>
+  <button
+    class="btn-paginator"
+    [disabled]="disableNextBtn()"
+    (click)="dataTable().nextPage()"
+  >
+    <span class="material-symbols-outlined"> chevron_right </span>
+  </button>
+</div>
